@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
         $otp = rand(100000, 999999); // Generate OTP
         $expiresAt = now()->addMinutes(30); // Set OTP expiry time
 
-        $user->otpVerifications()->updateOrCreate([
+        $user->otpVerification()->updateOrCreate([
             'otp' => $otp
         ],
         [
@@ -119,6 +119,8 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->profile()->create();
 
         $otpVerification->delete();
 

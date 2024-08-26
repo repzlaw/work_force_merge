@@ -74,7 +74,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
         return view('admin.dashboard');
     })->middleware(['admin'])->name('dashboard');
 });
-
-Route::get('/', function () {
-    return view('welcome');
-});

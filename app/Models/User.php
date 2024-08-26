@@ -48,7 +48,15 @@ class User extends Authenticatable
         ];
     }
 
-    public function otpVerifications(){
+    public function otpVerification(){
         return $this->hasOne(OtpVerification::class);
+    }
+
+    public function profile(){
+        return $this->hasOne(Profile::class);
+    }
+
+    public function salary(){
+        return $this->hasOne(Salary::class);
     }
 }
