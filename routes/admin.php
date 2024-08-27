@@ -72,5 +72,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
-    })->middleware(['admin'])->name('dashboard');
+    })->middleware(['admin']);
 });

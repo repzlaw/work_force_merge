@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('complete-registration') }}">
+    <form method="POST" action="{{ route('complete-registration.post') }}">
         @csrf
         
         <!-- Email Address -->

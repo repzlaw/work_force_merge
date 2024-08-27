@@ -24,5 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/onboarding/about', [OnboardingController::class, 'aboutStore'])->name('onboarding.about.store');
     Route::get('/onboarding/salary', [OnboardingController::class, 'salaryView'])->name('onboarding.salary');
     Route::post('/onboarding/salary', [OnboardingController::class, 'salaryStore'])->name('onboarding.salary.store');
+    Route::get('/onboarding/education', [OnboardingController::class, 'educationView'])->name('onboarding.education');
+    Route::post('/onboarding/education', [OnboardingController::class, 'educationStore'])->name('onboarding.education.store');
+    Route::delete('/delete-education/{id}', [OnboardingController::class, 'educationDelete'])->name('onboarding.education.delete');
 
 });

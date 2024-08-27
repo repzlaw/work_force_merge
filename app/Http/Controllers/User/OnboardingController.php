@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Education;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\SkillCategory;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+
+use function PHPUnit\Framework\isNull;
 
 class OnboardingController extends Controller
 {
@@ -115,7 +118,66 @@ class OnboardingController extends Controller
             'stage' => $this->user->profile->stage > 2 ? $this->user->profile->stage : 3
         ]);
 
-        return redirect()->route('dashboard');
-        // return redirect()->route('onboarding.education');
+        return redirect()->route('onboarding.education');
+    }
+
+    public function educationView() : View 
+    {
+        return view('user.onboarding.education', [
+            'user' => $this->user,
+        ]);
+    }
+
+    public function educationStore(Request $request)
+    {
+        $data = $request->all();
+
+        // Validation rules
+        $request->validate([
+            'educations.*.school_name' => 'required|string|max:255',
+            'educations.*.year' => 'required|numeric',
+            'educations.*.certificate' => 'required|string|max:255',
+            'educations.*.course' => 'required|string|max:255',
+        ]);
+
+        // Process each education entry
+        foreach ($data['educations'] as $education) {
+            if (!isNull($education['id'])) {
+                // Update existing record
+                Education::find($education['id'])->update([
+                    'user_id' => $this->user->id,
+                    'school_name' => $education['school_name'],
+                    'year' => $education['year'],
+                    'certificate' => $education['certificate'],
+                    'course' => $education['course']
+                ]);
+            } else {
+                Education::create([
+                    'user_id' => $this->user->id,
+                    'school_name' => $education['school_name'],
+                    'year' => $education['year'],
+                    'certificate' => $education['certificate'],
+                    'course' => $education['course']
+                ]);
+            }
+        }
+
+        $this->user->profile->update([
+            'stage' => $this->user->profile->stage > 3 ? $this->user->profile->stage : 4
+        ]);
+
+        // return redirect()->route('onboarding.skills');
+        return redirect()->route('onboarding.education');
+    }
+
+    public function educationDelete($id)
+    {
+        $education = $this->user->educations()->find($id);
+
+        if ($education) {
+            $education->delete();
+        }
+
+        return true;
     }
 }
