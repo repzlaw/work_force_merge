@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-6 gap-x-6">
-                            <a href="{{route('onboarding.skill-category')}}" class="text-sm font-semibold leading-6 text-gray-900">Go back</a>
+                            <a href="{{route('onboarding.salary')}}" class="text-sm font-semibold leading-6 text-gray-900">Go back</a>
                             <button type="submit" class="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 Continue
                             </button>
@@ -182,13 +182,6 @@
                 
                 currentIndex++;
             });
-
-            
-            // Deleting existing education blocks
-            // $('.delete-education-btn').click(function() {
-            //     var index = $(this).data('index');
-            //     $('#education-block-' + index).remove();
-            // });
 
             $('.delete-education-btn').click(function() {
                 var block = $(this).parent();

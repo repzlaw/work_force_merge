@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Skill;
 use App\Models\Education;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\SkillCategory;
 use App\Http\Controllers\Controller;
+use App\Models\UserSkill;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Redirect;
 
 class OnboardingController extends Controller
 {
@@ -28,7 +30,6 @@ class OnboardingController extends Controller
             'education',
             'skills',
         ];
-
 
     }
     
@@ -166,8 +167,7 @@ class OnboardingController extends Controller
             'stage' => $this->user->profile->stage > 3 ? $this->user->profile->stage : 4
         ]);
 
-        // return redirect()->route('onboarding.skills');
-        return redirect()->route('onboarding.education');
+        return redirect()->route('onboarding.skills');
     }
 
     public function educationDelete($id)
@@ -176,6 +176,65 @@ class OnboardingController extends Controller
 
         if ($education) {
             $education->delete();
+        }
+
+        return true;
+    }
+
+    public function skillsView() : View 
+    {
+        $skills = UserSkill::where('user_id', $this->user->id)->get();
+
+        return view('user.onboarding.skills', [
+            'user' => $this->user,
+            'skills' => $skills,
+        ]);
+    }
+
+    public function skillsStore(Request $request)
+    {
+        $data = $request->all();
+
+        // Validation rules
+        $request->validate([
+            'skills.*.skill_name' => 'required|string|max:255',
+            'skills.*.rate' => 'required|numeric',
+            'skills.*.experience' => 'required|string|max:255',
+        ]);
+
+        // Process each skill entry
+        foreach ($data['skills'] as $skill) {
+            if (!isNull($skill['id'])) {
+                // Update existing record
+                UserSkill::find($skill['id'])->update([
+                    'user_id' => $this->user->id,
+                    'skill_name' => $skill['skill_name'],
+                    'rate' => $skill['rate'],
+                    'experience' => $skill['experience'],
+                ]);
+            } else {
+                UserSkill::create([
+                    'user_id' => $this->user->id,
+                    'skill_name' => $skill['skill_name'],
+                    'rate' => $skill['rate'],
+                    'experience' => $skill['experience'],
+                ]);
+            }
+        }
+
+        $this->user->profile->update([
+            'stage' => $this->user->profile->stage > 4 ? $this->user->profile->stage : 5
+        ]);
+
+        return redirect()->route('dashboard');
+    }
+
+    public function skillDelete($id)
+    {
+        $skill = UserSkill::find($id);
+
+        if ($skill) {
+            $skill->delete();
         }
 
         return true;

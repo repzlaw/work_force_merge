@@ -10,6 +10,7 @@
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-100 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h4 class="mb-4 text-gray-900">What is your expected salary?</h4>
+
                     <form method="POST" action="{{ route('onboarding.salary.store') }}">
                         @csrf
                         

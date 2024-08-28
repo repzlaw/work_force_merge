@@ -28,6 +28,64 @@
                     </div>
                       
                     @endif
+
+                    <div class="my-5">
+                      <h1>Indicate your expression of interest by applying for these roles.</h1>
+                    </div>
+
+                    <div class="relative flex flex-col items-center justify-center overflow-hidden">
+                    
+                      @foreach ( $jobs as $key => $job)
+                       <div>
+                          <p></p>
+                       </div>
+                      @endforeach
+                      <div class="flex flex-col justify-between w-full gap-3 px-5 py-4 mt-5 bg-white rounded-md shadow-sm max-w-1xl shadow-gray-100 sm:flex-row sm:items-center">
+                        <div>
+                          <span class="text-sm text-purple-800">Engineering</span>
+                          <h3 class="mt-px font-bold text-purple-800">Senior Full Stack Backend Engineer</h3>
+                          <div class="flex items-center gap-3 mt-2">
+                            <span class="px-3 py-1 text-sm text-purple-700 bg-purple-100 rounded-full">Full-time</span>
+                            <span class="flex items-center gap-1 text-sm text-slate-600"> 
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg> Remote, UK</span>
+                          </div>
+                        </div>
+                        <div>
+                          <button class="flex items-center gap-1 px-4 py-2 font-medium text-white bg-purple-900 rounded-md">Apply Now <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <div class="flex flex-col justify-between w-full gap-3 px-5 py-4 mt-5 bg-white rounded-md shadow-sm max-w-1xl shadow-gray-100 sm:flex-row sm:items-center">
+                        <div>
+                          <span class="text-sm text-purple-800">Design</span>
+                          <h3 class="mt-px font-bold text-purple-800">UI/UX Designer</h3>
+                          <div class="flex items-center gap-3 mt-2">
+                            <span class="px-3 py-1 text-sm text-purple-700 bg-purple-100 rounded-full">Full-time</span>
+                            <span class="flex items-center gap-1 text-sm text-slate-600"> 
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg> Onsite, Germany</span>
+                          </div>
+                        </div>
+                        <div>
+                          <button class="flex items-center gap-1 px-4 py-2 font-medium text-white bg-purple-900 rounded-md">Apply Now <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    
                 </div>
             </div>
         </div>

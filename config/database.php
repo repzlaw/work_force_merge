@@ -172,6 +172,12 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'mongodb' => [
+                'driver' => 'mongodb',
+                'dsn' => env('MONGODB_URI', 'mongodb+srv://username:password@<atlas-cluster-uri>/myappdb?retryWrites=true&w=majority'),
+                'database' => env('MONGODB_DATABASE','myappdb')
+        ],
+
     ],
 
     /*
