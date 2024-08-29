@@ -18,7 +18,7 @@
             <ul class="main-menu">
               <li>
                 <a
-                  href="#"
+                  href="{{route('dashboard')}}"
                   class="flex items-center gray-800 capitalize text-sm mb-2 menu-list active"
                   ><img
                     src="../src/assets/home.svg"
@@ -62,7 +62,7 @@
               </li>
               <li>
                 <a
-                  href="#"
+                  href="{{route('profile.edit')}}"
                   class="flex items-center gray-800 capitalize text-sm mb-2 menu-list"
                   ><img
                     src="../src/assets/profile.svg"
@@ -71,6 +71,18 @@
                   />profile</a
                 >
               </li>
+              <li>
+                   <!-- Authentication -->
+                   <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-dropdown-link>
+                        </form>
+</li>
             </ul>
           </div>
         </div>
