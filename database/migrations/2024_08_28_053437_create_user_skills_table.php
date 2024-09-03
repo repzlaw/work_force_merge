@@ -6,7 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    protected $connection = 'mongodb';
+    // protected $connection = 'mongodb';
+    public function __construct()
+    {
+        $this->connection = 'skills';
+    }
 
     /**
      * Run the migrations.
@@ -15,7 +19,8 @@ return new class extends Migration
     {
         Schema::create('user_skills', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id');
             $table->json('skills')->nullable();
             $table->timestamps();
         });
