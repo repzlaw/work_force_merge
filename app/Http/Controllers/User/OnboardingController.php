@@ -136,7 +136,7 @@ class OnboardingController extends Controller
         // Validation rules
         $request->validate([
             'educations.*.school_name' => 'required|string|max:255',
-            'educations.*.year' => 'required|numeric',
+            'educations.*.year' => 'required|numeric|digits:4|min:1900|max:' . date('Y'),
             'educations.*.certificate' => 'required|string|max:255',
             'educations.*.course' => 'required|string|max:255',
         ]);
