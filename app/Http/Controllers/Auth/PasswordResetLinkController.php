@@ -34,16 +34,17 @@ class PasswordResetLinkController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user->email_verified_at) {
+        if ($user && !$user->email_verified_at) {
             $otp = rand(100000, 999999); // Generate OTP
             $expiresAt = now()->addMinutes(30); // Set OTP expiry time
 
             $user->otpVerification()->updateOrCreate([
-                'otp' => $otp
-            ],
-            [
+                'user_id' => $user->id,
+             ],
+             [
+                'otp' => $otp,
                 'expires_at' => $expiresAt,
-            ]);
+             ]);
 
             Mail::to($user->email)->send(new RegisterOtp($otp, $user)); // Send OTP to user's email
 

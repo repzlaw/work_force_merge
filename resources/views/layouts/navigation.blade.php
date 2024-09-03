@@ -1,25 +1,25 @@
 <div class="left-menu-bar" style="max-width: 320px; width: 320px">
           <div>
-            <a href="#"
+            <a href="/dashboard"
               ><img src="../src/assets/WFM-logo.svg" alt="WFM-logo"
             /></a>
           </div>
-          <div class="flex border border-x-0 py-4 user-details">
+          <div class="flex py-4 border border-x-0 user-details">
             <div class="user-short-name">JD</div>
             <div>
-              <div class="capitalize font-bold gray-800 user-name">
+              <div class="font-bold capitalize gray-800 user-name">
               {{ Auth::user()->name }}
               </div>
-              <div class="gray-500 text-sm user-email">{{ Auth::user()->email }}</div>
+              <div class="text-sm gray-500 user-email">{{ Auth::user()->email }}</div>
             </div>
           </div>
           <div>
-            <p class="gray-500 text-sm">Menu</p>
+            <p class="text-sm gray-500">Menu</p>
             <ul class="main-menu">
               <li>
                 <a
                   href="{{route('dashboard')}}"
-                  class="flex items-center gray-800 capitalize text-sm mb-2 menu-list active"
+                  class="flex items-center mb-2 text-sm capitalize gray-800 menu-list active"
                   ><img
                     src="../src/assets/home.svg"
                     alt="home"
@@ -30,7 +30,7 @@
               <li>
                 <a
                   href="#"
-                  class="flex items-center gray-800 capitalize text-sm mb-2 menu-list"
+                  class="flex items-center mb-2 text-sm capitalize gray-800 menu-list"
                   ><img
                     src="../src/assets/search-normal.svg"
                     alt="home"
@@ -41,7 +41,7 @@
               <li>
                 <a
                   href="#"
-                  class="flex items-center gray-800 capitalize text-sm mb-2 menu-list"
+                  class="flex items-center mb-2 text-sm capitalize gray-800 menu-list"
                   ><img
                     src="../src/assets/send.svg"
                     alt="home"
@@ -52,7 +52,7 @@
               <li>
                 <a
                   href="#"
-                  class="flex items-center gray-800 capitalize text-sm mb-2 menu-list"
+                  class="flex items-center mb-2 text-sm capitalize gray-800 menu-list"
                   ><img
                     src="../src/assets/messages.svg"
                     alt="home"
@@ -63,7 +63,7 @@
               <li>
                 <a
                   href="{{route('profile.edit')}}"
-                  class="flex items-center gray-800 capitalize text-sm mb-2 menu-list"
+                  class="flex items-center mb-2 text-sm capitalize gray-800 menu-list"
                   ><img
                     src="../src/assets/profile.svg"
                     alt="home"

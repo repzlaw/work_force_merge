@@ -10,4 +10,8 @@ class Profile extends Model
     use HasFactory;
     
     protected $guarded = [];
+
+    public function skillCategory(){
+        return $this->belongsTo(SkillCategory::class);
+    }
 }

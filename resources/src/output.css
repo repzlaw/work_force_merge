@@ -1272,3 +1272,8 @@ a:hover {
     padding-left: 40px;
   }
 }
+
+.disabled {
+  color: grey;
+  cursor: not-allowed;
+}

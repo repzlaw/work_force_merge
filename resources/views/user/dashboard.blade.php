@@ -3,9 +3,9 @@
         <div style="width: 100%">
           <div class="content_box">
             <div class="white-box-top">
-              <p class="m-0 gray-500 text-xl font-medium">Welcome, {{ Auth::user()->name }}</p>
-              <h1 class="gray-800 font-semibold text-4xl mt-6 mb-2">
-                Find your next UX design job!
+              <p class="m-0 text-xl font-medium gray-500">Welcome, {{ Auth::user()->name }}</p>
+              <h1 class="mt-6 mb-2 text-4xl font-semibold gray-800">
+                Find your next {{$user->profile?->skillCategory?->name}} job!
               </h1>
               <p class="gray-500">
                 Explore amazing opportunities from amazing companies!
@@ -17,7 +17,7 @@
                       type="text"
                       name="email"
                       id="email"
-                      class="form-input m-0"
+                      class="m-0 form-input"
                       placeholder="UX Designer"
                     />
                     <span class="input_icon input_icon_left"
@@ -49,16 +49,16 @@
             <div class="white-box-main">
               <div class="white-box-main-container">
                 <div class="text-center profile-details">
-                  <div class="user-details w-full">
+                  <div class="w-full user-details">
                     <div class="user-short-name">JD</div>
-                    <div class="capitalize gray-500 font-medium mt-4">
+                    <div class="mt-4 font-medium capitalize gray-500">
                     {{ Auth::user()->name }}
                     </div>
                   </div>
                   <div class="">
                     <a
                       href="#"
-                      class="btn w-48 mx-auto my-2 green-btn round-btn"
+                      class="w-48 mx-auto my-2 btn green-btn round-btn"
                       ><img
                         src="../src/assets/briefcase.svg"
                         alt="briefcase"
@@ -76,22 +76,22 @@
                   </div>
                 </div>
 
-                @if($user->profile->stage < 5)
+                @if(isset($user->profile) && $user->profile->stage < 5)
 
-                <div class="px-4 py-6 w-1/2 mx-auto setup_profile-box ">
-                  <h6 class="text-xl font-medium mb-2">Setup your profile</h6>
-                  <p class="text-sm mb-4 gray-400">
-                    Completing your profile gives you the opportunity to apply
-                    for jobs and gives us the opportunity to understand your
-                    career preferences and best suited matches.
-                  </p>
-                  <a
-                    href="/onboarding"
-                    class="btn btn-blue font-bold btn-dark-blue round-btn"
-                    >Setup your profile
-                    <img src="../src/assets/arrow-right.svg" alt="arrow"
-                  /></a>
-                </div>
+                  <div class="w-1/2 px-4 py-6 mx-auto setup_profile-box ">
+                    <h6 class="mb-2 text-xl font-medium">Setup your profile</h6>
+                    <p class="mb-4 text-sm gray-400">
+                      Completing your profile gives you the opportunity to apply
+                      for jobs and gives us the opportunity to understand your
+                      career preferences and best suited matches.
+                    </p>
+                    <a
+                      href="/onboarding"
+                      class="font-bold btn btn-blue btn-dark-blue round-btn"
+                      >Setup your profile
+                      <img src="../src/assets/arrow-right.svg" alt="arrow"
+                    /></a>
+                  </div>
 
                 @endif
 

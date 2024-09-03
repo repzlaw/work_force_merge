@@ -20,8 +20,8 @@ Route::middleware('guest')->group(function () {
     // Route::get('verify-otp', [RegisteredUserController::class, 'otpView'])
     //             ->name('verify-otp');
 
-    // Route::post('verify-otp', [RegisteredUserController::class, 'verifyOtp'])
-    //             ->name('verify-otp');
+    Route::post('resend-otp', [RegisteredUserController::class, 'resendOtp'])
+                ->name('resend-otp');
 
     Route::get('complete-registration', [RegisteredUserController::class, 'completeRegistrationView'])
                 ->name('complete-registration');

@@ -12,20 +12,20 @@
         <div class="container ">
           <div class="mt-24 box_container">
             <h1 class="mb-6 text-3xl font-bold gray-800">Sign In</h1>
-            <p class="gray-500 text-15 font-base">
+            <p class="mb-4 gray-500 text-15 font-base">
               Create a free account to get started with Work-Force Merge
             </p>
-            <div class="pt-1 mt-14">
+            {{-- <div class="pt-1 mt-14">
               <a href="#" class="block text-sm gray-500 white_btn"
                 ><img src="../src/assets/google.svg" alt="" /> Continue with
                 Google</a
               >
-            </div>
-            <div class="my-6 divider_line">
+            </div> --}}
+            {{-- <div class="my-6 divider_line">
               <span></span>
               <span class="uppercase text-15 gray-500">or</span>
               <span></span>
-            </div>
+            </div> --}}
             <form method="POST" action="{{ route('login') }}">
               @csrf
 
