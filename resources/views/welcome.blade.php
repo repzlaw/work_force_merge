@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landing Page</title>
-    {{-- <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" /> --}}
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" href="../src/output.css" />
 </head>
 
@@ -27,12 +27,31 @@
                     <li>
                         <a href="#" class="capitalize gray-500 font-medium mr-7">contact</a>
                     </li>
-                    <li>
-                        <a href="#" class="capitalize full-radius btn btn-dark-blue w-36 mr-4">login</a>
-                    </li>
-                    <li>
-                        <a href="#" class="capitalize full-radius btn-blue btn w-36">join us now</a>
-                    </li>
+                    @if (Route::has('login'))
+
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="capitalize full-radius btn btn-dark-blue w-36 mr-4">
+                                Dashboard </a>
+                        @else
+                            <a href="{{ route('login') }}" class="capitalize full-radius btn btn-dark-blue w-36 mr-4">
+                                Log
+                                in
+                            </a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="capitalize full-radius btn-blue btn w-36">join us
+                                    now</a>
+                                </a>
+                            @endif
+                        @endauth
+                        <li>
+                            <a href="#" class="capitalize full-radius btn btn-dark-blue w-36 mr-4">login</a>
+                        </li>
+                        <li>
+                            <a href="#" class="capitalize full-radius btn-blue btn w-36">join us now</a>
+                        </li>
+                    @endif
+
                 </ul>
             </div>
         </div>
