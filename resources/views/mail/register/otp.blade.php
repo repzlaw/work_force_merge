@@ -1,13 +1,13 @@
 <x-mail::message>
-# Introduction
+{{-- # Introduction --}}
 
 Your OTP is: {{ $otp }}
 
-You can click this button to continue registration
+{{-- You can click this button to continue registration
 
 <x-mail::button :url="$url">
 Continue
-</x-mail::button>
+</x-mail::button> --}}
 
 Thanks,<br>
 {{ config('app.name') }}

@@ -136,7 +136,7 @@ class OnboardingController extends Controller
         // Validation rules
         $request->validate([
             'educations.*.school_name' => 'required|string|max:255',
-            'educations.*.year' => 'required|numeric',
+            'educations.*.year' => 'required|numeric|digits:4|min:1900|max:' . date('Y'),
             'educations.*.certificate' => 'required|string|max:255',
             'educations.*.course' => 'required|string|max:255',
         ]);
@@ -183,7 +183,8 @@ class OnboardingController extends Controller
 
     public function skillsView() : View 
     {
-        $skills = UserSkill::where('user_id', $this->user->id)->get();
+        $user_skills = UserSkill::where('user_id', $this->user->id)->get();
+        $skills = Skill::where('skill_category_id', $this->user->profile->skill_category_id)->get();
 
         return view('user.onboarding.skills', [
             'user' => $this->user,

@@ -36,7 +36,8 @@
                                             Year of graduation
                                         </label>
                                         <div class="mt-2">
-                                            <input type="number" value="{{ $education->year }}" name="educations[{{$index}}][year]" id="year{{$index}}" autocomplete="off" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                                            <input type="number" value="{{ $education->year }}" name="educations[{{$index}}][year]" 
+                                            min="1900" max="{{ date('Y') }}" id="year{{$index}}" autocomplete="off" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                                         </div>
                                     </div>
 
@@ -73,8 +74,8 @@
                                             </label>
                                             <div class="mt-2">
                                             <input type="text" name="educations[0][school_name]" id="school_name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            required>
-                                            </div>
+                                                value="{{old('educations[0][school_name]')}}" max="4" required>
+                                            </div>                                            
                                         </div>
                 
                                         <div class="mt-4 sm:col-span-3">
@@ -82,9 +83,11 @@
                                                 Year of graduation
                                             </label>
                                             <div class="mt-2">
-                                            <input type="number" name="educations[0][year]" id="year" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            required>
+                                            <input type="number" name="educations[0][year]" id="year" autocomplete="given-name"
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                min="1900" max="{{ date('Y') }}" required placeholder="Enter year">
                                             </div>
+                                            <x-input-error :messages="$errors->get('educations[0][year]')" class="mt-2" />
                                         </div>
                 
                                         <div class="mt-4 sm:col-span-3">
@@ -151,7 +154,8 @@
                         <div class="mt-4 sm:col-span-3">
                             <label for="year${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Year of Graduation</label>
                             <div class="mt-2">
-                                <input type="number" name="educations[${currentIndex}][year]" id="year${currentIndex}" autocomplete="off" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                                <input type="number" name="educations[${currentIndex}][year]" id="year${currentIndex}" autocomplete="off" 
+                                min="1900" max="{{ date('Y') }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                             </div>
                         </div>
         

@@ -20,12 +20,12 @@
                 @csrf
 
 
-            <div class="flex justify-center">
+            {{-- <div class="flex justify-center">
               <ul class="switch-tabs">
                 <li class="active" id="talent_tab">Talent</li>
                 <li id="recruiter_tab">Recruiter</li>
               </ul>
-            </div>
+            </div> --}}
             <div class="mt-6 user_form" id="talent_form">
 
               <div class="form-control">
