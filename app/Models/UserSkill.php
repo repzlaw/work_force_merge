@@ -13,4 +13,10 @@ class UserSkill extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'skill_id' => 'integer',
+        'user_id' => 'integer',
+        'skills' => 'array',
+    ];
+
 }

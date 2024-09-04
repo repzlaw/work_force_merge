@@ -183,12 +183,13 @@ class OnboardingController extends Controller
 
     public function skillsView() : View 
     {
-        $user_skills = UserSkill::where('user_id', $this->user->id)->get();
+        $user_skills = UserSkill::where('user_id', $this->user->id)->first();
         $skills = Skill::where('skill_category_id', $this->user->profile->skill_category_id)->get();
 
         return view('user.onboarding.skills', [
             'user' => $this->user,
             'skills' => $skills,
+            'user_skills' => $user_skills,
         ]);
     }
 
@@ -196,48 +197,67 @@ class OnboardingController extends Controller
     {
         $data = $request->all();
 
-        // Validation rules
+        // Validate the incoming request
         $request->validate([
-            'skills.*.skill_name' => 'required|string|max:255',
-            'skills.*.rate' => 'required|numeric',
-            'skills.*.experience' => 'required|string|max:255',
+            'skills.*.skill' => 'required|string|max:255',
+            'skills.*.rating' => 'required|numeric',
+            'skills.*.experience' => 'required|numeric',
         ]);
 
-        // Process each skill entry
-        foreach ($data['skills'] as $skill) {
-            if (!isNull($skill['id'])) {
-                // Update existing record
-                UserSkill::find($skill['id'])->update([
-                    'user_id' => $this->user->id,
-                    'skill_name' => $skill['skill_name'],
-                    'rate' => $skill['rate'],
-                    'experience' => $skill['experience'],
-                ]);
-            } else {
-                UserSkill::create([
-                    'user_id' => $this->user->id,
-                    'skill_name' => $skill['skill_name'],
-                    'rate' => $skill['rate'],
-                    'experience' => $skill['experience'],
-                ]);
-            }
-        }
+        // Prepare the skills array from the request
+        $skills = array_map(function ($skill) {
+            return [
+                'skill' => $skill['skill'],
+                'rating' => $skill['rating'],
+                'experience' => $skill['experience'],
+            ];
+        }, $data['skills']);
 
+        // Update the user document
+        UserSkill::updateOrCreate(
+            [
+                'user_id' => $this->user->id
+            ],
+            [
+                'skills' => $skills,
+            ]
+        );
+
+
+        // Optionally update other user profile settings
         $this->user->profile->update([
-            'stage' => $this->user->profile->stage > 4 ? $this->user->profile->stage : 5
+            'stage' => max($this->user->profile->stage, 5)
         ]);
 
         return redirect()->route('dashboard');
     }
 
-    public function skillDelete($id)
+    public function skillDelete($index)
     {
-        $skill = UserSkill::find($id);
-
-        if ($skill) {
-            $skill->delete();
+        // Fetch the UserSkill document for the authenticated user
+        $userSkill = UserSkill::where('user_id', $this->user->id)->first();
+    
+        if (!$userSkill) {
+            return false;
         }
-
-        return true;
+    
+        // Copy the skills array to a local variable
+        $skills = $userSkill->skills;
+    
+        // Check if the index exists in the skills array
+        if (isset($skills[$index])) {
+            // Remove the skill at the specified index
+            array_splice($skills, $index, 1);
+    
+            // Reassign the modified array back to the model's property
+            $userSkill->skills = $skills;
+    
+            // Save the modified document
+            $userSkill->save();
+    
+            return true;
+        }
+    
+        return false;
     }
 }
