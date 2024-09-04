@@ -183,7 +183,8 @@ class OnboardingController extends Controller
 
     public function skillsView() : View 
     {
-        $skills = UserSkill::where('user_id', $this->user->id)->get();
+        $user_skills = UserSkill::where('user_id', $this->user->id)->get();
+        $skills = Skill::where('skill_category_id', $this->user->profile->skill_category_id)->get();
 
         return view('user.onboarding.skills', [
             'user' => $this->user,
