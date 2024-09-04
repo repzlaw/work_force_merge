@@ -67,7 +67,7 @@
                       Available for work</a
                     >
                   </div>
-                  <h3 class="text-2xl font-semibold">UI/UX Designer</h3>
+                  <h3 class="text-2xl font-semibold">{{$user->profile?->skillCategory?->name}}</h3>
                   <div class="flex justify-center">
                     <ul class="switch-tabs">
                       <li class="active">overview</li>
