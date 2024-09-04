@@ -11,5 +11,7 @@ class Skill extends Model
 
     protected $connection = 'mongodb';
 
+    protected $table = 'skill_names';
+
     protected $guarded = [];
 }

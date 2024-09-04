@@ -11,6 +11,8 @@ class UserSkill extends Model
 
     protected $connection = 'mongodb';
 
+    protected $table = 'user_skills';
+
     protected $guarded = [];
 
     protected $casts = [
