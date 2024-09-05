@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Talent Onboarding 6</title>
     <link rel="stylesheet" href="../src/output.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -16,8 +17,7 @@
                     <span class="bc-primary-yellow block full-radius" style="width: 30%; height: 10px"></span>
                 </div>
                 <p class="gray-500 mt-9">Welcome to Work-Force Forge</p>
-                <h3 class="text-3xl font-bold gray-800 mt-4">Welcome, {{ Auth::user()->name }}
-                </h3>
+                <h3 class="text-3xl font-bold gray-800 mt-4">Welcome, {{ Auth::user()->name }}</h3>
                 @php
                     $startingIndex = count($user->educations);
                 @endphp
@@ -47,103 +47,113 @@
                             </p>
                         </div>
 
-                        @foreach ($user->educations as $index => $education)
-                            <div class="grid grid-rows-3 grid-flow-col gap-4 mt-14">
-                                <div class="row-span-5 col-span-5">
-                                    <div class="form-control">
-                                        <label for="school_name{{ $index }}">Name of school</label>
-                                        <div class="form-input-group">
-                                            <input type="text" value="{{ $education->school_name }}"
-                                                name="educations[{{ $index }}][school_name]"
-                                                id="school_name{{ $index }}" autocomplete="off"
-                                                class="form-input m-0" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row-span-3">
-                                    <div class="form-control">
-                                        <label for="year{{ $index }}">Year of graduation</label>
-                                        <div class="form-input-group">
-                                            <input type="number" value="{{ $education->year }}"
-                                                name="educations[{{ $index }}][year]" min="1900"
-                                                max="{{ date('Y') }}" id="year{{ $index }}"
-                                                autocomplete="off" class="form-input m-0" required>
+                        <div id="education-container">
+                            @foreach ($user->educations as $index => $education)
+                                <div class="pb-5 my-4 mb-5 education-block" id="education-block-{{ $index }}">
+                                    <input type="hidden" name="educations[{{ $index }}][id]"
+                                        value="{{ $education->id }}">
 
+                                    <div class="grid grid-rows-3 grid-flow-col gap-4">
+                                        <div class="row-span-5 col-span-5">
+                                            <div class="form-control">
+                                                <label for="school_name{{ $index }}">Name of school</label>
+                                                <div class="form-input-group">
+                                                    <input type="text" value="{{ $education->school_name }}"
+                                                        name="educations[{{ $index }}][school_name]"
+                                                        id="school_name{{ $index }}" autocomplete="off"
+                                                        class="form-input m-0" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-span-3">
+                                            <div class="form-control">
+                                                <label for="year{{ $index }}">Year of graduation</label>
+                                                <div class="form-input-group">
+                                                    <input type="number" value="{{ $education->year }}"
+                                                        name="educations[{{ $index }}][year]" min="1900"
+                                                        max="{{ date('Y') }}" id="year{{ $index }}"
+                                                        autocomplete="off" class="form-input m-0" required>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="grid grid-rows-3 grid-flow-col gap-4">
+                                        <div class="row-span-3">
+                                            <div class="form-control input-left-icon">
+                                                <label for="certificate{{ $index }}">Certificate</label>
+                                                <div class="form-input-group">
+                                                    <input type="text" value="{{ $education->certificate }}"
+                                                        name="educations[{{ $index }}][certificate]"
+                                                        id="certificate{{ $index }}" autocomplete="off"
+                                                        class="form-input m-0" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-span-5 col-span-5">
+                                            <div class="form-control input-left-icon">
+                                                <label for="course{{ $index }}">Course</label>
+                                                <div class="form-input-group">
+                                                    <input type="text" value="{{ $education->course }}"
+                                                        name="educations[{{ $index }}][course]"
+                                                        id="course{{ $index }}" autocomplete="off"
+                                                        class="form-input m-0" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-7">
+                                        <button type="button" data-education-id="{{ $education->id }}"
+                                            class="delete-education-btn capitalize full-radius font-bold btn btn-dark-red red">
+                                            Remove Record </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="grid grid-rows-3 grid-flow-col gap-4">
-                                <div class="row-span-3">
-                                    <div class="form-control input-left-icon">
-                                        <label for="certificate{{ $index }}">Certificate</label>
-                                        <div class="form-input-group">
-                                            <input type="text" value="{{ $education->certificate }}"
-                                                name="educations[{{ $index }}][certificate]"
-                                                id="certificate{{ $index }}" autocomplete="off"
-                                                class="form-input m-0" required>
+                            @endforeach
+                        </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row-span-5 col-span-5">
-                                    <div class="form-control input-left-icon">
-                                        <label for="course{{ $index }}">Course</label>
-                                        <div class="form-input-group">
-                                            <input type="text" value="{{ $education->course }}"
-                                                name="educations[{{ $index }}][course]"
-                                                id="course{{ $index }}" autocomplete="off"
-                                                class="form-input m-0" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <button type="button" data-education-id="{{ $education->id }}"
-                                    class="capitalize full-radius font-bold btn btn-dark-red red"><img
-                                        src="../src/assets/trash.svg" class="mr-2.5" alt=""> Remove
-                                    Record</button>
-
-                            </div>
-                        @endforeach
                         @if ($startingIndex == 0)
-                            <div class="grid grid-rows-3 grid-flow-col gap-4 mt-14">
-                                <div class="row-span-5 col-span-5">
-                                    <div class="form-control">
-                                        <label for="school">Name of school</label>
-                                        <div class="form-input-group">
-                                            <input type="text" name="school" id="school" class="form-input m-0"
-                                                placeholder="E.g. WFM University" autocomplete="off" />
+                            <div class="pb-5 my-4 mb-5 education-block" id="education-block-0">
+                                <input type="hidden" name="educations[0][id]" value="null">
+
+                                <div class="grid grid-rows-3 grid-flow-col gap-4">
+                                    <div class="row-span-5 col-span-5">
+                                        <div class="form-control">
+                                            <label for="school">Name of school</label>
+                                            <div class="form-input-group">
+                                                <input type="text" name="educations[0][school_name]" id="school"
+                                                    class="form-input m-0" placeholder="E.g. WFM University"
+                                                    autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-span-3">
+                                        <div class="form-control">
+                                            <label for="graduation">Year of graduation</label>
+                                            <div class="form-input-group">
+                                                <input type="text" name="educations[0][year]" id="graduation"
+                                                    class="form-input m-0" placeholder="2000" autocomplete="off" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row-span-3">
-                                    <div class="form-control">
-                                        <label for="graduation">Year of graduation</label>
-                                        <div class="form-input-group">
-                                            <input type="text" name="graduation" id="graduation"
-                                                class="form-input m-0" placeholder="2000" autocomplete="off" />
+                                <div class="grid grid-rows-3 grid-flow-col gap-4">
+                                    <div class="row-span-3">
+                                        <div class="form-control input-left-icon">
+                                            <label for="certificate">Certificate</label>
+                                            <div class="form-input-group">
+                                                <input type="text" name="educations[0][certificate]"
+                                                    id="certificate" class="form-input m-0" placeholder="E.g B.Sc"
+                                                    autocomplete="off" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="grid grid-rows-3 grid-flow-col gap-4">
-                                <div class="row-span-3">
-                                    <div class="form-control input-left-icon">
-                                        <label for="certificate">Certificate</label>
-                                        <div class="form-input-group">
-                                            <input type="text" name="certificate" id="certificate"
-                                                class="form-input m-0" placeholder="E.g B.Sc" autocomplete="off" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row-span-5 col-span-5">
-                                    <div class="form-control input-left-icon">
-                                        <label for="course">Course</label>
-                                        <div class="form-input-group">
-                                            <input type="text" name="course" id="course"
-                                                class="form-input m-0" placeholder="E.g. Computer Science"
-                                                autocomplete="off" />
+                                    <div class="row-span-5 col-span-5">
+                                        <div class="form-control input-left-icon">
+                                            <label for="course">Course</label>
+                                            <div class="form-input-group">
+                                                <input type="text" name="educations[0][course]" id="course"
+                                                    class="form-input m-0" placeholder="E.g. Computer Science"
+                                                    autocomplete="off" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -151,22 +161,18 @@
                         @endif
 
                         <div class="mt-3 flex items-center justify-between">
-
                             <button type="button" id="add-education"
-                                class="capitalize full-radius font-bold btn btn-dark-blue ">Add
-                                another
-                                institution</button>
+                                class="capitalize full-radius font-bold btn btn-dark-blue">Add
+                                another institution</button>
                         </div>
                     </div>
 
                     <div class="flex items-center justify-between mt-5">
                         <a href="{{ route('onboarding.salary') }}" class="gray-600 font-bold">Go Back</a>
-                        <button type="submit" class="btncapitalize full-radius btn-blue btn inline-block">Continue
-                        </button>
+                        <button type="submit"
+                            class="btncapitalize full-radius btn-blue btn inline-block">Continue</button>
                     </div>
                 </form>
-
-
             </div>
             <div>
                 <div class="fixed right-0 top-0 talent-onbaording-banner md:block hidden">
@@ -175,77 +181,67 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript to handle adding and removing education blocks -->
+    <script>
+        $(document).ready(function() {
+            var currentIndex = {{ $startingIndex > 0 ? $startingIndex : 1 }};
+
+            $('#add-education').click(function() {
+                var newBlock = `
+                    <div class="pb-5 my-4 mb-5 education-block" id="education-block-${currentIndex}">
+                        <input type="hidden" name="educations[${currentIndex}][id]" value="null">
+
+                        <div class="grid grid-rows-3 grid-flow-col gap-4">
+                            <div class="row-span-5 col-span-5">
+                                <div class="form-control">
+                                    <label for="school_name${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Name of School</label>
+                                    <div class="mt-2">
+                                        <input type="text" name="educations[${currentIndex}][school_name]" id="school_name${currentIndex}" class="form-input m-0" placeholder="E.g. WFM University" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-span-3">
+                                <div class="form-control">
+                                    <label for="year${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Year of Graduation</label>
+                                    <div class="mt-2">
+                                        <input type="number" name="educations[${currentIndex}][year]" id="year${currentIndex}" class="form-input m-0" placeholder="2000" min="1900" max="${new Date().getFullYear()}" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-rows-3 grid-flow-col gap-4">
+                            <div class="row-span-3">
+                                <div class="form-control input-left-icon">
+                                    <label for="certificate${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Certificate</label>
+                                    <div class="mt-2">
+                                        <input type="text" name="educations[${currentIndex}][certificate]" id="certificate${currentIndex}" class="form-input m-0" placeholder="E.g B.Sc" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-span-5 col-span-5">
+                                <div class="form-control input-left-icon">
+                                    <label for="course${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Course</label>
+                                    <div class="mt-2">
+                                        <input type="text" name="educations[${currentIndex}][course]" id="course${currentIndex}" class="form-input m-0" placeholder="E.g. Computer Science" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-7">
+                            <button type="button" data-index="${currentIndex}" class="delete-education-btn capitalize full-radius font-bold btn btn-dark-red red">Remove Record</button>
+                        </div>
+                    </div>
+                `;
+                $('#education-container').append(newBlock);
+                currentIndex++;
+            });
+
+            $(document).on('click', '.delete-education-btn', function() {
+                $(this).closest('.education-block').remove();
+            });
+        });
+    </script>
 </body>
-<!-- JavaScript to handle adding new education blocks -->
-<script>
-    $(document).ready(function() {
-        var currentIndex = {{ $startingIndex > 0 ? $startingIndex : 1 }};
-
-        $('#add-education').click(function() {
-            var newBlock = `
-                <div class="pb-5 my-4 mb-5 education-block" id="education-block-${currentIndex}">
-                    <input type="hidden" name="educations[${currentIndex}][id]" value="null">
-
-                    <div class="sm:col-span-3">
-                        <label for="school_name${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Name of School</label>
-                        <div class="mt-2">
-                            <input type="text" name="educations[${currentIndex}][school_name]" id="school_name${currentIndex}" autocomplete="off" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 sm:col-span-3">
-                        <label for="year${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Year of Graduation</label>
-                        <div class="mt-2">
-                            <input type="number" name="educations[${currentIndex}][year]" id="year${currentIndex}" autocomplete="off"
-                            min="1900" max="{{ date('Y') }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 sm:col-span-3">
-                        <label for="certificate${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Certificate</label>
-                        <div class="mt-2">
-                            <input type="text" name="educations[${currentIndex}][certificate]" id="certificate${currentIndex}" autocomplete="off" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 sm:col-span-3">
-                        <label for="course${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Course</label>
-                        <div class="mt-2">
-                            <input type="text" name="educations[${currentIndex}][course]" id="course${currentIndex}" autocomplete="off" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                        </div>
-                    </div>
-                    <button type="button" class="px-3 py-2 my-4 text-sm font-semibold text-white bg-red-500 rounded-md shadow-sm delete-education-btn hover:bg-red-600" data-index="${currentIndex}">Delete</button>
-                    <br/>
-                </div>
-            `;
-
-            $('#education-container').append(newBlock);
-
-            // Bind delete function to new button
-            $(`#education-block-${currentIndex} .delete-education-btn`).click(function() {
-                $(this).parent().remove();
-            });
-
-            currentIndex++;
-        });
-
-        $('.delete-education-btn').click(function() {
-            var block = $(this).parent();
-            var educationId = $(this).data(
-                'education-id'); // Assuming you have a data attribute holding the ID
-
-            $.ajax({
-                url: '/delete-education/' + educationId, // API endpoint
-                type: 'DELETE',
-                success: function(result) {
-                    block.remove(); // Only remove the block on successful deletion
-                },
-                error: function(err) {
-                    alert('Error deleting education.');
-                }
-            });
-        });
-    });
-</script>
 
 </html>
