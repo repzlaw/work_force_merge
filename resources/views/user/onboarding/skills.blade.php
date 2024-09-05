@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Talent Onboarding 7</title>
     <link rel="stylesheet" href="../src/output.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
+@php
+    $startingIndex = count($skills);
+@endphp
 
 <body>
     <div class="container-small">
@@ -41,172 +46,192 @@
                             This helps us match you with the right job.
                         </p>
                     </div>
-                    <div class="rounded-xl border p-5 mt-7">
-                        <div class="grid grid-rows-3 grid-flow-col gap-4">
-                            <div class="row-span-4 col-span-4">
-                                <div class="form-control">
-                                    <label for="skill" class="gray-500 font-medium">Skill 1</label>
-                                    <div class="form-input-group">
-                                        <input type="text" name="skill" id="skill" class="form-input m-0"
-                                            placeholder="E.g. Protptyping" autocomplete="off" />
+                    <form method="POST" action="{{ route('onboarding.skills.store') }}">
+                        @csrf
+
+                        <div id="skill-container">
+                            @foreach ($skills as $index => $skill)
+                                <div id="skill-block-{{ $index }}">
+                                    <input type="hidden" name="skills[{{ $index }}][id]"
+                                        value="{{ $skill->id }}">
+                                    <div class="rounded-xl border p-5 mt-7">
+                                        <div class="grid grid-rows-3 grid-flow-col gap-4">
+                                            <div class="row-span-4 col-span-4">
+                                                <div class="form-control">
+                                                    <label for="skill" class="gray-500 font-medium">Skill
+                                                        1</label>
+                                                    <div class="form-input-group">
+                                                        <input type="text" value="{{ $skill->skill_name }}"
+                                                            name="skills[{{ $index }}][skill_name]"
+                                                            id="skill_name{{ $index }}" class="form-input m-0"
+                                                            placeholder="E.g. Prototyping" autocomplete="off" />
+                                                    </div>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <p class="gray-500 text-xs">Suggestions</p>
+                                                    <ul class="mt-2">
+                                                        <!-- Suggestion items here -->
+                                                    </ul>
+                                                </div>
+                                                <div class="form-control mt-6">
+                                                    <label for="experience" class="gray-500 font-medium">How many
+                                                        years
+                                                        of experience do you have with this skill?</label>
+                                                    <div class="form-input-group">
+                                                        <input type="number" value="{{ $skill->experience }}"
+                                                            name="skills[{{ $index }}][experience]"
+                                                            id="experience{{ $index }}" class="form-input m-0"
+                                                            placeholder="E.g. Prototyping" autocomplete="off" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-span-3 text-right">
+                                                <p class="gray-500 mb-4">What would you rate yourself?</p>
+                                                <input type="number" value="{{ $skill->rate }}"
+                                                    name="skills[{{ $index }}][rate]"
+                                                    id="rate{{ $index }}" class="form-input m-0"
+                                                    placeholder="E.g. Prototyping" autocomplete="off" />
+
+                                                <ul class="flex justify-end">
+                                                    <!-- Rating stars here -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-7">
+                                        <button type="button" data-skill-id="{{ $skill->id }}"
+                                            class="delete-skill-btn capitalize full-radius font-bold btn btn-dark-red red">
+                                            <img src="../src/assets/trash.svg" class="mr-2.5" alt="" />
+                                            Remove
+                                            Skill
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="mt-4">
-                                    <p class="gray-500 text-xs">Suggestions</p>
-                                    <ul class="mt-2">
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Figma
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Sketch
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Protopie
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Illustrator
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            After Effects
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Photoshop
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Invision
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-control mt-6">
-                                    <label for="experience" class="gray-500 font-medium">How many years of experience do
-                                        you have with this experience?</label>
-                                    <div class="form-input-group">
-                                        <input type="text" name="experience" id="experience" class="form-input m-0"
-                                            placeholder="E.g. Protptyping" autocomplete="off" />
+                            @endforeach
+
+                            @if ($startingIndex == 0)
+                                <div id="skill-block-0">
+                                    <input type="hidden" name="skills[0][id]" value="null" />
+                                    <div class="rounded-xl border p-5 mt-7">
+                                        <div class="grid grid-rows-3 grid-flow-col gap-4">
+                                            <div class="row-span-4 col-span-4">
+                                                <div class="form-control">
+                                                    <label for="skill" class="gray-500 font-medium">Skill
+                                                        1</label>
+                                                    <div class="form-input-group">
+                                                        <input type="text" name="skills[0][skill_name]"
+                                                            id="skill_name" autocomplete="given-name"
+                                                            class="form-input m-0" placeholder="E.g. Protptyping"
+                                                            autocomplete="off" />
+                                                    </div>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <p class="gray-500 text-xs">Suggestions</p>
+                                                    <ul class="mt-2">
+                                                        <li
+                                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                                            Figma
+                                                        </li>
+                                                        <li
+                                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                                            Sketch
+                                                        </li>
+                                                        <li
+                                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                                            Protopie
+                                                        </li>
+                                                        <li
+                                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                                            Illustrator
+                                                        </li>
+                                                        <li
+                                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                                            After Effects
+                                                        </li>
+                                                        <li
+                                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                                            Photoshop
+                                                        </li>
+                                                        <li
+                                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                                            Invision
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="form-control mt-6">
+                                                    <label for="experience" class="gray-500 font-medium">How
+                                                        many
+                                                        years of
+                                                        experience do
+                                                        you have with this skill?</label>
+                                                    <div class="form-input-group">
+
+                                                        <input type="number" name="skills[0][experience]"
+                                                            id="experience" class="form-input m-0"
+                                                            placeholder="E.g. Protptyping" autocomplete="off" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-span-3 text-right">
+                                                <p class="gray-500 mb-4">What would you rate yourself?</p>
+
+                                                <input type="number" name="skills[0][rate]" id="rate"
+                                                    class="form-input m-0" placeholder="E.g. Protptyping"
+                                                    autocomplete="off" />
+
+                                                <ul class="flex justify-end">
+
+                                                    <li class="ml-3">
+                                                        <img class="w-6" src="../src/assets/star.svg"
+                                                            alt="" />
+                                                    </li>
+                                                    <li class="ml-3">
+                                                        <img class="w-6" src="../src/assets/star.svg"
+                                                            alt="" />
+                                                    </li>
+                                                    <li class="ml-3">
+                                                        <img class="w-6" src="../src/assets/star.svg"
+                                                            alt="" />
+                                                    </li>
+                                                    <li class="ml-3">
+                                                        <img class="w-6" src="../src/assets/star.svg"
+                                                            alt="" />
+                                                    </li>
+                                                    <li class="ml-3">
+                                                        <img class="w-6" src="../src/assets/star.svg"
+                                                            alt="" />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-7">
+                                        <button type="button"
+                                            class="delete-skill-btn capitalize
+                                        full-radius font-bold btn btn-dark-red red"><img
+                                                src="../src/assets/trash.svg" class="mr-2.5" alt=""
+                                                data-index="0"> Remove
+                                            Skill</button>
+
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row-span-3 text-right">
-                                <p class="gray-500 mb-4">What would you rate yourself?</p>
-                                <ul class="flex justify-end">
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                </ul>
-                            </div>
+                            @endif
+
                         </div>
-                    </div>
-                    <div class="rounded-xl border p-5 mt-4">
-                        <div class="grid grid-rows-3 grid-flow-col gap-4">
-                            <div class="row-span-4 col-span-4">
-                                <div class="form-control">
-                                    <label for="skill" class="gray-500 font-medium">Skill 1</label>
-                                    <div class="form-input-group">
-                                        <input type="text" name="skill" id="skill" class="form-input m-0"
-                                            placeholder="E.g. Protptyping" autocomplete="off" />
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <p class="gray-500 text-xs">Suggestions</p>
-                                    <ul class="mt-2">
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Figma
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Sketch
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Protopie
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Illustrator
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            After Effects
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Photoshop
-                                        </li>
-                                        <li
-                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
-                                            Invision
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-control mt-6">
-                                    <label for="experience" class="gray-500 font-medium">How many years of experience
-                                        do you have with this experience?</label>
-                                    <div class="form-input-group">
-                                        <input type="text" name="experience" id="experience"
-                                            class="form-input m-0" placeholder="E.g. Protptyping"
-                                            autocomplete="off" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-span-3 text-right">
-                                <p class="gray-500 mb-4">What would you rate yourself?</p>
-                                <ul class="flex justify-end">
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                    <li class="ml-3">
-                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="flex items-center justify-between mt-7">
+                            <button type="button" id="add-skill"
+                                class="capitalize full-radius font-bold btn btn-dark-blue ">Add another
+                                skill</button>
                         </div>
-                    </div>
-                    <div class="flex items-center justify-between mt-7">
-                        <a href="#" class="capitalize full-radius font-bold btn btn-dark-red red"><img
-                                src="../src/assets/trash.svg" class="mr-2.5" alt=""> Remove Skill</a>
-                        <a href="#" class="capitalize full-radius font-bold btn btn-dark-blue ">Add another
-                            skill</a>
-                    </div>
+
                 </div>
                 <div class="flex items-center justify-between mt-5">
                     <a href="{{ route('onboarding.education') }}" class="gray-600 font-bold">Go Back</a>
-                    <<button type="submit" class="btncapitalize full-radius btn-blue btn inline-block">Finish
-                        </button>
+                    <button type="submit" class="btncapitalize full-radius btn-blue btn inline-block">Finish
+                    </button>
                 </div>
-                <div class="mt-40 text-center mb-10">
-                    <p class="gray-500 font-medium">
-                        Already have an account? <a href="#" class="gray-800">Log In</a>
-                    </p>
-                </div>
+                </form>
+
             </div>
             <div>
                 <div class="fixed right-0 top-0 talent-onbaording-banner md:block hidden">
@@ -215,66 +240,112 @@
             </div>
         </div>
     </div>
-    <!-- JavaScript to handle adding new skill blocks -->
-    <script>
-        $(document).ready(function() {
-                    var currentIndex = {{ $startingIndex > 0 ? $startingIndex : 1 }};
 
-                    $('#add-skill').click(function() {
-                        var newBlock = `
-                    <div class="pb-5 my-4 mb-5 skill-block" id="skill-block-${currentIndex}">
-                        <input type="hidden" name="skills[${currentIndex}][id]" value="null">
 
-                        <div class="sm:col-span-3">
-                            <label for="skill${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">Name of School</label>
-                            <div class="mt-2">
-                                <select id="skill" name="skills[${currentIndex}][skill]" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                required>
-                                    <option value="">Select a skill</option>
-                                    @foreach ($skills as $skill)
-<option value="{{ $skill->id }}">{{ $skill->name }}</option>
-@endforeach
-                                </select>
+
+
+
+
+</body>
+
+</html>
+
+<script>
+    $(document).ready(function() {
+        var currentIndex = {{ $startingIndex > 0 ? $startingIndex : 1 }};
+
+        // Function to add a new skill block
+        $('#add-skill').click(function() {
+            var newBlock = `
+            <div id="skill-block-${currentIndex}">
+                <input type="hidden" name="skills[${currentIndex}][id]" value="null">
+                <div class="rounded-xl border p-5 mt-7">
+                    <div class="grid grid-rows-3 grid-flow-col gap-4">
+                        <div class="row-span-4 col-span-4">
+                            <div class="form-control">
+                                <label for="skill" class="gray-500 font-medium">Skill 1</label>
+                                <div class="form-input-group">
+                                    <input type="text"
+                                        name="skills[${currentIndex}][skill_name]"
+                                        id="skill_name${currentIndex}" class="form-input m-0"
+                                        placeholder="E.g. Prototyping" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="gray-500 text-xs">Suggestions</p>
+                                <ul class="mt-2">
+                                    <li class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">Figma</li>
+                                    <li class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">Sketch</li>
+                                    <li class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">Protopie</li>
+                                    <li class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">Illustrator</li>
+                                    <li class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">After Effects</li>
+                                    <li class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">Photoshop</li>
+                                    <li class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">Invision</li>
+                                </ul>
+                            </div>
+                            <div class="form-control mt-6">
+                                <label for="experience" class="gray-500 font-medium">How many years of experience do you have with this skill?</label>
+                                <div class="form-input-group">
+                                    <input type="number"
+                                        name="skills[${currentIndex}][experience]"
+                                        id="experience${currentIndex}" class="form-input m-0"
+                                        placeholder="E.g. Prototyping" autocomplete="off" />
+                                </div>
                             </div>
                         </div>
+                        <div class="row-span-3 text-right">
+                            <p class="gray-500 mb-4">What would you rate yourself?</p>
+                            <input type="number"
+                                name="skills[${currentIndex}][rate]" id="rate${currentIndex}"
+                                class="form-input m-0" placeholder="E.g. Prototyping"
+                                autocomplete="off" />
 
-                        <div class="mt-4 sm:col-span-3">
-                            <label for="rating${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">
-                                What would you rate yourself?
-                            </label>
-                            <div class="mt-2">
-                                <input type="number" name="skills[${currentIndex}][rating]" id="rating${currentIndex}" autocomplete="off" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                            </div>
+                            <ul class="flex justify-end">
+                                <li class="ml-3">
+                                    <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                </li>
+                                <li class="ml-3">
+                                    <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                </li>
+                                <li class="ml-3">
+                                    <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                </li>
+                                <li class="ml-3">
+                                    <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                </li>
+                                <li class="ml-3">
+                                    <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                </li>
+                            </ul>
                         </div>
-
-                        <div class="mt-4 sm:col-span-3">
-                            <label for="experience${currentIndex}" class="block text-sm font-medium leading-6 text-gray-900">
-                            How many years of experience do you have with this skill?
-                            </label>
-                            <div class="mt-2">
-                                <input type="number" name="skills[${currentIndex}][experience]" id="experience${currentIndex}" autocomplete="off" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                            </div>
-                        </div>
-
-                        <button type="button" class="px-3 py-2 my-4 text-sm font-semibold text-white bg-red-500 rounded-md shadow-sm delete-skill-btn hover:bg-red-600" data-index="${currentIndex}">Delete</button>
-                        <br/>
                     </div>
-                `;
+                </div>
+                <div class="flex items-center justify-between mt-7">
+                    <button type="button" class="delete-skill-btn capitalize full-radius font-bold btn btn-dark-red red" data-index="${currentIndex}">
+                        <img src="../src/assets/trash.svg" class="mr-2.5" alt="" /> Remove Skill
+                    </button>
+                </div>
+            </div>`;
 
-                        $('#skill-container').append(newBlock);
+            $('#skill-container').append(newBlock);
+            currentIndex++;
+        });
+        $(document).on('click', '.delete-skill-btn', function() {
+            var skillId = $(this).data('skill-id'); // Get skill ID from data attribute
+            var blockId = $(this).closest('div[id^="skill-block-"]').attr('id'); // Get parent block ID
 
-                        // Bind delete function to new button
-                        $(`#skill-block-${currentIndex} .delete-skill-btn`).click(function() {
-                            $(this).parent().remove();
-                        });
+            console.log('Deleting skill with ID:', skillId); // For debugging
+            console.log('Deleting block with ID:', blockId); // For debugging
 
-                        currentIndex++;
-                    });
+            // Remove the skill block from the DOM
+            $('#' + blockId).remove();
+        });
+        // Function to delete a skill block
+        // $(document).on('click', '.delete-skill-btn', function() {
+        //     var index = $(this).data('index');
+        //     console.log('Deleting block with index:', index);
 
-
-                    <
-                    /script> <
-
-                    /
-                    body > < /
-                    html >
+        //     $('#skill-block-' + index).remove();
+        // });
+    });
+</script>
