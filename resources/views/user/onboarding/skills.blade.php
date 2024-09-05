@@ -1,10 +1,7 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Onboarding') }}
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="en">
 
+<<<<<<< Updated upstream
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-100 sm:rounded-lg">
@@ -111,28 +108,223 @@
                                     </div>
                                     <button type="button" class="px-3 py-2 my-4 text-sm font-semibold text-white bg-red-500 rounded-md shadow-sm delete-skill-btn hover:bg-red-600" data-index="0">Delete</button>
                                     <br/>
-                                </div>
-                            @endif
-                        </div>
-                        
-                        <div class="flex items-center justify-center mt-6 gap-x-6">
-                            <button type="button" id="add-skill" class="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Add skill
-                            </button>
-                        </div>
+=======
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talent Onboarding 7</title>
+    <link rel="stylesheet" href="../src/output.css" />
+</head>
 
-                        <div class="flex items-center justify-end mt-6 gap-x-6">
-                            <a href="{{route('onboarding.education')}}" class="text-sm font-semibold leading-6 text-gray-900">Go back</a>
-                            <button type="submit" class="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Finish
-                            </button>
+<body>
+    <div class="container-small">
+        <div class="grid grid-flow-row-dense grid-cols-2 mt-28">
+            <div>
+                <div class="bc-gray-100 full-radius progress-bar">
+                    <span class="bc-primary-yellow block full-radius" style="width: 30%; height: 10px"></span>
+                </div>
+                <p class="gray-500 mt-9">Welcome to Work-Force Forge</p>
+                <h3 class="text-3xl font-bold gray-800 mt-4">Welcome, {{ Auth::user()->name }}
+                </h3>
+                <div class="border talent-box-container">
+                    <div class="talent-onboarding-title">
+                        <div class="flex items-center justify-between">
+                            <h1 class="gray-800 font-medium text-3xl mb-4">
+                                What are you skills?
+                            </h1>
+
+                            <ul class="flex onboarding-avtar">
+                                <li>
+                                    <img src="../src/assets/avtar-1.png" class="full-radius" alt="" />
+                                </li>
+                                <li>
+                                    <img src="../src/assets/avtar-2.png" class="full-radius" alt="" />
+                                </li>
+                                <li>
+                                    <img src="../src/assets/avtar-3.png" class="full-radius" alt="" />
+                                </li>
+                            </ul>
                         </div>
-                    </form>
-                    
+                        <p class="gray-500">
+                            This helps us match you with the right job.
+                        </p>
+                    </div>
+                    <div class="rounded-xl border p-5 mt-7">
+                        <div class="grid grid-rows-3 grid-flow-col gap-4">
+                            <div class="row-span-4 col-span-4">
+                                <div class="form-control">
+                                    <label for="skill" class="gray-500 font-medium">Skill 1</label>
+                                    <div class="form-input-group">
+                                        <input type="text" name="skill" id="skill" class="form-input m-0"
+                                            placeholder="E.g. Protptyping" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="gray-500 text-xs">Suggestions</p>
+                                    <ul class="mt-2">
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Figma
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Sketch
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Protopie
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Illustrator
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            After Effects
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Photoshop
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Invision
+                                        </li>
+                                    </ul>
+>>>>>>> Stashed changes
+                                </div>
+                                <div class="form-control mt-6">
+                                    <label for="experience" class="gray-500 font-medium">How many years of experience do
+                                        you have with this experience?</label>
+                                    <div class="form-input-group">
+                                        <input type="text" name="experience" id="experience" class="form-input m-0"
+                                            placeholder="E.g. Protptyping" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-span-3 text-right">
+                                <p class="gray-500 mb-4">What would you rate yourself?</p>
+                                <ul class="flex justify-end">
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border p-5 mt-4">
+                        <div class="grid grid-rows-3 grid-flow-col gap-4">
+                            <div class="row-span-4 col-span-4">
+                                <div class="form-control">
+                                    <label for="skill" class="gray-500 font-medium">Skill 1</label>
+                                    <div class="form-input-group">
+                                        <input type="text" name="skill" id="skill" class="form-input m-0"
+                                            placeholder="E.g. Protptyping" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="gray-500 text-xs">Suggestions</p>
+                                    <ul class="mt-2">
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Figma
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Sketch
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Protopie
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Illustrator
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            After Effects
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Photoshop
+                                        </li>
+                                        <li
+                                            class="inline-flex px-2.5 py-3 text-xs gray-800 font-medium mr-2.5 mb-2 input-box">
+                                            Invision
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="form-control mt-6">
+                                    <label for="experience" class="gray-500 font-medium">How many years of experience
+                                        do you have with this experience?</label>
+                                    <div class="form-input-group">
+                                        <input type="text" name="experience" id="experience"
+                                            class="form-input m-0" placeholder="E.g. Protptyping"
+                                            autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-span-3 text-right">
+                                <p class="gray-500 mb-4">What would you rate yourself?</p>
+                                <ul class="flex justify-end">
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                    <li class="ml-3">
+                                        <img class="w-6" src="../src/assets/star.svg" alt="" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-7">
+                        <a href="#" class="capitalize full-radius font-bold btn btn-dark-red red"><img
+                                src="../src/assets/trash.svg" class="mr-2.5" alt=""> Remove Skill</a>
+                        <a href="#" class="capitalize full-radius font-bold btn btn-dark-blue ">Add another
+                            skill</a>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between mt-5">
+                    <a href="{{ route('onboarding.education') }}" class="gray-600 font-bold">Go Back</a>
+                    <<button type="submit" class="btncapitalize full-radius btn-blue btn inline-block">Finish
+                        </button>
+                </div>
+                <div class="mt-40 text-center mb-10">
+                    <p class="gray-500 font-medium">
+                        Already have an account? <a href="#" class="gray-800">Log In</a>
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="fixed right-0 top-0 talent-onbaording-banner md:block hidden">
+                    <img src="../src/assets/right-frame.png" alt="" />
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< Updated upstream
     <!-- JavaScript to handle adding new skill blocks -->
     <script>
         $(document).ready(function() {
@@ -188,23 +380,8 @@
                 
                 currentIndex++;
             });
+=======
+</body>
+>>>>>>> Stashed changes
 
-            $('.delete-skill-btn').click(function() {
-                var block = $(this).parent();
-                var skillId = $(this).data('skill-id'); // Assuming you have a data attribute holding the ID
-
-                $.ajax({
-                    url: '/delete-skill/' + skillId, // API endpoint
-                    type: 'DELETE',
-                    success: function(result) {
-                        block.remove(); // Only remove the block on successful deletion
-                    },
-                    error: function(err) {
-                        alert('Error deleting skill.');
-                    }
-                });
-            });
-        });
-        </script>
-        
-</x-app-layout>
+</html>

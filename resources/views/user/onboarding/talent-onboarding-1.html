@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talent Onboarding 1</title>
+    <link rel="stylesheet" href="../src/output.css" />
+  </head>
+  <body>
+    <div class="container-small">
+      <div class="grid grid-flow-row-dense grid-cols-2">
+        <div class="mt-28">
+          <div class="bc-gray-100 full-radius progress-bar">
+            <span
+              class="bc-primary-yellow block full-radius"
+              style="width: 20%; height: 10px"
+            ></span>
+          </div>
+          <p class="gray-500 mt-9">Welcome to Work-Force Forge</p>
+          <div class="text-3xl font-medium mt-4 inline-flex">
+            <span>Hello</span>
+            <input
+              type="text"
+              class="talent-onboard-input mx-2"
+              placeholder="Your first name"
+            />
+            <span><img src="../src/assets/wave-hand.png" alt="" /></span>
+          </div>
+          <div class="border talent-box-container">
+            <div class="talent-onboarding-title">
+              <div class="flex items-center justify-between">
+                <h1 class="gray-800 font-medium text-3xl mb-4">
+                  We’d love to know why you’re here
+                </h1>
+                <ul class="flex onboarding-avtar">
+                  <li>
+                    <img
+                      src="../src/assets/avtar-1.png"
+                      class="full-radius"
+                      alt=""
+                    />
+                  </li>
+                  <li>
+                    <img
+                      src="../src/assets/avtar-2.png"
+                      class="full-radius"
+                      alt=""
+                    />
+                  </li>
+                  <li>
+                    <img
+                      src="../src/assets/avtar-3.png"
+                      class="full-radius"
+                      alt=""
+                    />
+                  </li>
+                </ul>
+              </div>
+
+              <p class="gray-500">You can select only one</p>
+            </div>
+            <div class="flex items-center justify-center mt-9">
+              <div
+                class="inline-flex justify-center rounded-xl talent-box-clickable"
+              >
+                <div class="px-4 py-5">
+                  <input type="radio" name="get-job" class="talent-box-button" id="getjob" />
+                  <div class="talent-input-checked">
+                    <img src="../src/assets/check.png" alt="" />
+                  </div>
+                  <img
+                    src="../src/assets/briefcase-transparent.svg"
+                    class="mx-auto mb-4"
+                    alt=""
+                  />
+                  <p>Get a Job</p>
+                </div>
+              </div>
+              <div
+                class="inline-flex justify-center rounded-xl ml-6 talent-box-clickable"
+              >
+                <div class="px-4 py-5 text-center">
+                  <input type="radio" name="get-job" class="talent-box-button" id="hire-talent" />
+                  <div class="talent-input-checked">
+                    <img src="../src/assets/check.png" alt="" />
+                  </div>
+                  <img
+                    src="../src/assets/user-add.svg"
+                    class="mx-auto mb-4"
+                    alt=""
+                  />
+                  <p>Hire Talent</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-right mt-5">
+            <a
+              href="#"
+              class="btncapitalize full-radius btn-blue btn inline-block"
+              >Continue</a
+            >
+          </div>
+          <div class="mt-40 text-center">
+            <p class="gray-500 font-medium">
+              Already have an account? <a href="#" class="gray-800">Log In</a>
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="fixed right-0">
+            <img src="../src/assets/right-frame.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="../src/js/index.js"></script>
+  </body>
+</html>
