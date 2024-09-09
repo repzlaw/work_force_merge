@@ -32,27 +32,57 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validate the email input
         $request->validate([
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
         ]);
 
+        // Check if the user already exists
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            // Check if the email is not verified
+            if (is_null($user->email_verified_at)) {
+                // Generate OTP
+                $otp = rand(100000, 999999);
+                $expiresAt = now()->addMinutes(30);
+
+                // Update or create OTP verification record
+                $user->otpVerification()->updateOrCreate(
+                    ['user_id' => $user->id],
+                    ['otp' => $otp, 'expires_at' => $expiresAt]
+                );
+
+                // Send OTP to user's email
+                Mail::to($user->email)->send(new RegisterOtp($otp, $user));
+
+                // Redirect to the next step
+                return redirect()->route('complete-registration', ['email' => $request->email]);
+            } else {
+                // Email is already verified
+                return redirect()->back()->withErrors(['email' => 'Your user is already active. Please login & reset your password.']);
+            }
+        }
+
+        // If the user doesn't exist, create a new user
         $user = User::create([
             'email' => $request->email,
         ]);
 
-        $otp = rand(100000, 999999); // Generate OTP
-        $expiresAt = now()->addMinutes(30); // Set OTP expiry time
+        // Generate OTP for the new user
+        $otp = rand(100000, 999999);
+        $expiresAt = now()->addMinutes(30);
 
-        $user->otpVerification()->updateOrCreate([
-            'user_id' => $user->id,
-         ],
-         [
+        // Create OTP verification record
+        $user->otpVerification()->create([
             'otp' => $otp,
             'expires_at' => $expiresAt,
-         ]);
+        ]);
 
-        Mail::to($user->email)->send(new RegisterOtp($otp, $user)); // Send OTP to user's email
+        // Send OTP to user's email
+        Mail::to($user->email)->send(new RegisterOtp($otp, $user));
 
+        // Redirect to the next step
         return redirect()->route('complete-registration', ['email' => $request->email]);
     }
 
